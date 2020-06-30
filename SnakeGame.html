@@ -1,0 +1,190 @@
+<html>
+<head>
+<title> Javascript Practice</title>
+<style>
+        #mydiv{
+               width:800px;
+               height:400px;
+               background-colour:aqua;
+               margin: 20px;
+              }
+
+       #mycanvas{
+                  background-image :url("https://images.all-free-download.com/images/graphicthumb/green_grass_design_elements_vector_534085.jpg")
+                }
+</style>
+</head>
+
+ 
+<body>
+      <canvas id="mycanvas" width=1520px height=700px></canvas>
+        
+
+<!-- -----------------------------------------------  -->    
+<script>
+
+function init(){
+canvas = document.getElementById("mycanvas");
+W=canvas.width;
+H=canvas.height;
+pen=canvas.getContext('2d')
+game_over=false;
+
+//img food
+food_img= new Image();
+food_img.src="https://i.ya-webdesign.com/images/watermelon-cartoon-png-16.png";
+
+
+food= getRandomFood();
+score=0;
+snake ={
+         init_length:1 ,
+         color:"yellow",
+         cells:[],  
+         direction:"right",
+        
+         createSnake:function(){
+          for(var i=this.init_length-1;i>=0;i--){
+           this.cells.push({x:i,y:0});
+           }
+         },
+          
+         drawSnake:function(){
+          for(var i=0;i<this.cells.length;i++){
+           pen.fillStyle="yellow";
+           pen.strokeStyle="orange";
+           pen.lineWidth= 5;
+           pen.strokeRect(this.cells[i].x*50, this.cells[i].y*50, 50,50);       
+          pen.fillRect(this.cells[i].x*50, this.cells[i].y*50, 50,50);
+           }
+        },
+        
+        updateSnake:function(){
+         var headX=this.cells[0].x;      
+         var headY=this.cells[0].y;
+                 
+         if(headX==food.x && headY==food.y){
+           food=getRandomFood();
+           score=score+10;
+          }  
+         else{
+         this.cells.pop();   
+         }
+
+      if(this.direction=="right"){
+       nextX=headX+1;
+       nextY=headY;
+       }
+       else if(this.direction=="left"){
+       nextX=headX-1;
+       nextY=headY;
+       }
+       else if(this.direction=="down"){
+       nextX=headX;
+       nextY=headY+1;
+       }
+       else{
+       nextX=headX;
+       nextY=headY-1;
+       } 
+      this.cells.unshift({x:nextX,y:nextY}); 
+
+var last_x=Math.round(W/50);
+var last_y=Math.round(H/50);     
+
+if(this.cells[0].y<-1)
+{
+  game_over=true;
+  alert("Game over!");
+} 
+else if( this.cells[0].x<-1)
+{
+  game_over=true;
+  alert("Game over!");
+} 
+else if( this.cells[0].y>last_y)
+{
+  game_over=true;
+  alert("Game over!");
+} 
+else if( this.cells[0].x>last_x)
+{
+  game_over=true;
+  alert("Game over!");
+} 
+
+}
+
+  };
+
+snake.createSnake();
+
+function KeyPressed(e){
+console.log("key pressed");
+ console.log(e);
+
+if(e.key=="ArrowRight"){
+ snake.direction="right";
+ }
+else if(e.key=="ArrowLeft"){
+ snake.direction="left";
+}
+else if(e.key=="ArrowDown"){
+ snake.direction="down";
+}
+else if(e.key=="ArrowUp"){
+ snake.direction="up";
+}
+}
+
+document.addEventListener('keydown',KeyPressed);
+}
+
+
+
+function draw() {
+pen.clearRect(0,0,W,H);
+snake.drawSnake();
+
+pen.fillStyle=food.color;
+pen.drawImage(food_img,food.x*50,food.y*50,70,50);
+
+pen.fillStyle="white";
+pen.font= "90px bold Courier";
+pen.fillText("Score: "+score,60,90);
+}  
+
+function update() {
+snake.updateSnake();
+}
+
+function gameloop() {
+draw();
+update();
+if(game_over==true)
+{
+clearInterval(x);
+} 
+}
+
+function getRandomFood(){
+var foodX= Math.round(Math.random()*(W-50)/50);
+var foodY= Math.round(Math.random()*(H-50)/50);
+
+var food = {
+  x:foodX,
+  y:foodY,
+  color:"coral"
+};
+return food;
+}
+
+init();
+var x= setInterval(gameloop,250)
+
+</script>
+
+<!-- -----------------------------------------------  -->
+
+</body>
+</html>
