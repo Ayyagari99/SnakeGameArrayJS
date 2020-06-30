@@ -1,0 +1,274 @@
+Creating variables:
+------------------
+console.log("Hello World!");
+
+let a=10;
+console.log(a); // like a print statement
+
+let b=[1,2,3,4,5,6,7,10];
+console.log(b);
+
+
+Basic template:
+---------------
+<html>
+<head>
+<title> JSpractice </title> 
+<style>
+//mydivs or my canvas like #mycanvas{}
+</style>
+</head>
+
+<body>
+<p> My webpage </p>
+<canvas></canvas>
+<script></script>
+
+</body>
+</html>
+
+Output of script part is seen in inspect-console. Functions can be called in console also. 
+Either write js code directly inside script tag or include a .js file. 
+To include a file, <script src="practice.js"></script> after saving the javascript file with name practice.js
+
+
+Variable:
+--------
+c=20; //global scope
+var d=30; //have function scope
+let e=90; //have block or between {} scope  (like works inside if block only)
+
+
+Function:
+--------
+There are two ways to define a function.
+//function declaration
+function fun() {
+return 9; 
+}
+fun(); 
+
+or
+
+//function expression
+var fun= function(){
+return 9;
+}
+fun();
+
+
+Functions can be called in inspect-console also. The return value is seen in the console. We can return strings also like return "hello"; 
+
+
+Function Hoisting:
+-----------------
+Hoisting is JavaScript's default behavior of moving declarations to the top. In other words; a variable can be used before it has been declared.
+
+So functions declared by type 1 can be called before it is declared.
+
+But, function declared by type 2 will not work if the function call is before the function definition. These type of functions are not hoisted by javascript.
+
+
+Arrays:
+------
+let arr= ["apple", "mango", "oragne"];
+
+To get the length of array in inspect-console use either arr["length"] or arr.length
+
+
+for(let i=0; i<5; i++){
+console.log(arr[i]);
+}
+
+Output is seen in console. Some other operations which can be used in console
+arr; prints the size with entire array
+arr.push("banana") adds this as the last element
+arr.pop() removes the last element
+arr.indexOf("Mango") gives the position of this item
+arr.shift(); removes the front element
+arr.unshift("kiwi") adds this at the front of the array
+
+
+Object Oriented Programming:
+----------------------------
+
+Javascript allows to create objects without defining the class. 
+
+var bird={
+    x:100,
+    y:20,
+    color:"blue",
+    eggs: ["egg1", "egg2", "egg3", "egg4"],
+
+    fly:function(){
+    console.log("Bird is flying",this.x,this.y);
+    }
+};
+This way to create object without class is called as JSON.
+To use the function use bird.fly() in console
+To access the element use bird.x; 
+To use x and y inside the function or inside the bird class, use this.x or this.y
+
+To iterate over the array eggs use either
+ 
+for(let i=0; i<bird.eggs.length; i++){
+ console.log(bird.eggs[i])
+}
+
+or
+
+birds.eggs.forEach(function(val,idx){
+console.log(idx,val);
+});
+
+In this, there is an unnamed function, which gets the indices and value.
+0 "egg1"
+1 "egg2"
+2 "egg3"
+3 "egg4"
+
+
+
+Another way to create objects:
+------------------------------
+We saw that one way to create an object directly is
+//direct
+var mango= {
+taste:"sweet"   
+color="yellow"
+}
+
+But when we want to create multiple fruits with same attributes(taste and color) then we can use something like
+//using functions
+function fruit(taste,color){
+this.taste=taste;
+this.color=color;
+}
+let mango=new fruit("sweet","yellow");
+let orange=new fruit("sour","orange");
+
+Another way, introduced in ECMAScript 2015 is using the class keyword:
+//class declaration- is not hoisted
+class fruit{
+ constructor(taste,color){
+ this.taste=taste;
+ this.color=color;
+}
+};
+let mango = new fruit("sweet","yellow");
+
+Another way using the class keyword is:
+//class expression- is not hoisted
+let fruit=class{
+constructor(taste,color){
+ this.taste=taste;
+ this.color=color;
+}
+};
+let mango = new fruit("sweet","yellow");
+
+
+DOM(Document object model):
+--------------------------
+
+Document is an object in js. DOM Tree is like:
+       Document
+      /        \
+    head       body
+    /  \      /  |  \   
+ title style div p script
+
+To traverse and list all divs in document:
+
+paragraphs= documentgetElementByTagName('p') // to list all <p> tag elements as an array
+
+paragraphs[1] will print the first <p> tag element like: <p> etcetc </p>
+paragraphs[1].innerText will give the text in the first paragragh like: "etetc"
+paragraphs[1].innerText="New etcetc" will modify it
+
+documentgetElementById('mydiv') // to get some particular div 
+
+Canvas Tag:
+----------
+This tag allows to create graphics. It is inside the body tag and outside the script tag. Style it like (bg color/ bg image/width/height) in the style tag inside head tag.
+
+<canvas id="mycanvas" width=100px height=100px> </canvas>
+
+To access it and modify inside the script tag use:
+var canvas= document.get ElementById('mycanvas')
+console.log(canvas)
+canvas.width=100;
+
+To draw items we need something like a pen:
+pen=canvas.getContext('2d'); //2d is a parameter
+This pen has lot of functions
+In console:
+pen.fillStyle="blue";
+pen.fillRect(20,20,30,60); this is x,y,width,height
+
+pen.strokeStyle="white"
+pen.arc(x,y,radius,beginangle, 2*Math.PI)
+pen.stroke();
+pen.fill(); //fills color
+pen.fillStyle="red"
+pen.fil()
+
+
+
+Game loop:
+----------
+Initialize once
+Draw - Update (infinite loop)
+Till game ends
+
+
+function init(){
+}
+function draw(){
+}
+function update(){
+}
+
+function gameloop(){
+draw();
+update();
+}
+
+init();
+gameloop();
+
+var q=setInterval(gameloop,100); //This is a special function that calls gameloop every 100 millisecs
+clearInterval(q); //this breaks the setinterval and then game ends. So this must be based on some condition.
+
+
+
+Event Listeners:
+----------------
+
+function func_name(){ //when keydown, use parameter e
+console.log("you clicked on the screen");
+//or console.log("key pressed is, e.key");
+}
+
+document.addEventListener('click', func_name); Or we can even add this to a canvas instead of entire screen by
+canvas.addEventListener('click', func_name);
+
+Like 'click' there is 'keydown' also. To know what key got pressed, there is a parameter that is automatically sent to the function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
