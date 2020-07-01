@@ -20,5 +20,5 @@ Would like to thank Prateek bhaiya, Arnav bhaiya and all the resources on Youtub
 
 # A Small Catch:
 The game does not end when the snake hits itself. <br />
-This part is yet to be developed. <br/ >
+This part is yet to be developed. <br />
 
