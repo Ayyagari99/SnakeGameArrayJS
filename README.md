@@ -14,6 +14,8 @@ When the snake/array hits the outline of the page, the game ends:
 # Authors:
 Srinidhi Ayyagari
 
-# In Action:
+# Acknowledgement:
 Would like to thank Prateek bhaiya, Arnav bhaiya and all the resources on Youtube and Stack Overflow always! :)
 
+# A Small Catch:
+The game does not end when the snake hits itself. This part is yet to be developed. 
